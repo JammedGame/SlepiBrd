@@ -3,14 +3,16 @@ export { Level }
 import * as TBX from "toybox-engine";
 import { Wall } from "./Wall";
 import { WallGroup } from "./WallGroup";
-import { GameScene } from "../GameScene";
 import { Fuel } from "./Fuel";
+import { GameScene, DayState } from "../GameScene";
+import { Radar } from "./Radar";
 
 class Level
 {
     private _Scene:GameScene;
 	private _Obstacles: WallGroup[];
 	private _Fuels: Fuel[];
+    private _Radars: Radar[];
     public constructor(Old?:Level, Scene?:GameScene)
     {
         this._Scene = Scene;
@@ -27,6 +29,7 @@ class Level
     {
 		this._Obstacles = [];
 		this._Fuels = [];
+        this._Radars = [];
         let CurrentOffset = 0;
         for(let i = 0; i < 300; i++)
         {
@@ -39,9 +42,30 @@ class Level
     public Update() : void
     {
 		this._Obstacles.forEach(Obstacle => Obstacle.Update());
+        this._Radars.forEach(Radar =>
+        {
+            Radar.Update();
+            if(Radar.Complete)
+            {
+                this._Scene.Remove(Radar);
+            }
+            if(this._Scene.State == DayState.Night)
+            {
+                this.ApplyRadar(Radar);
+            }
+        });
+        this._Radars = this._Radars.filter(Radar => !Radar.Complete);
+    }
+    public CreateRadar() : void
+    {
+        let Position: number = -this._Scene.Trans.Translation.X;
+        let R: Radar = new Radar(Position, this._Scene.Player.Speed * 5);
+        this._Radars.push(R);
+        this._Scene.Attach(R);
     }
     public Reset() : void
     {
+        this._Radars = [];
         for(let i = 0; i < this._Obstacles.length; i++)
         {
             this._Obstacles[i].Destroy();
@@ -64,4 +88,14 @@ class Level
 		let Location:number = TBX.Random.Next(250, 930);
 		this._Fuels.push(new Fuel(this._Scene, new TBX.Vertex(Offset, Location)));
 	}
+    private ApplyRadar(Radar: Radar) : void
+    {
+        this._Obstacles.forEach(Group =>
+        {
+            if(Math.abs(Group.Position.X - Radar.XPosition) < 100)
+            {
+                Group.Enlighten();
+            }
+        });
+    }
 }

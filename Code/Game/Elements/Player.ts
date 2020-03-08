@@ -11,6 +11,7 @@ class Player extends TBX.Tile
     private _SpeedFactor:number;
     private _Scene:GameScene;
     private _Velocity:TBX.Vertex;
+    public get Speed():number { return 3 + this._SpeedFactor; }
     public constructor(Old?:Player, Scene?:GameScene)
     {
         super(Old);
@@ -47,8 +48,8 @@ class Player extends TBX.Tile
         this._SpeedFactor += 0.003;
         this._Velocity.Y -= (this._Velocity.Y / Math.abs(this._Velocity.Y)) * (Math.abs(this._Velocity.Y) / 8);
         this.Position.Add(this._Velocity.Copy().Scalar(-1));
-        this.Position.X += 3 + this._SpeedFactor;
-        this._Scene.Trans.Translation.X -= 3 + this._SpeedFactor;
+        this.Position.X += this.Speed;
+        this._Scene.Trans.Translation.X -= this.Speed;
         if(this.Position.Y < 0)
         {
             this.Position.Y = 0;
