@@ -38,11 +38,11 @@ class Player extends TBX.Tile
     }
     public Update() : void
     {
-        this._SpeedFactor += 0.01;
-        this._Velocity.Y -= 0.3* (this._Velocity.Y / Math.abs(this._Velocity.Y));
+        this._SpeedFactor += 0.003;
+        this._Velocity.Y -= (this._Velocity.Y / Math.abs(this._Velocity.Y)) * (Math.abs(this._Velocity.Y) / 8);
         this.Position.Add(this._Velocity.Copy().Scalar(-1));
-        this.Position.X += 2 + this._SpeedFactor;
-        this._Scene.Trans.Translation.X -= 2 + this._SpeedFactor;
+        this.Position.X += 3 + this._SpeedFactor;
+        this._Scene.Trans.Translation.X -= 3 + this._SpeedFactor;
         if(this.Position.Y < 0)
         {
             this.Position.Y = 0;
@@ -59,7 +59,7 @@ class Player extends TBX.Tile
     }
     public Move(Direction: number) : void
     {
-        this._Velocity.Y = 8 * Direction;
+        this._Velocity.Y = (10 + (this._SpeedFactor / 2)) * Direction;
     }
     private GameOver() : void
     {
