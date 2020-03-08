@@ -168,7 +168,5 @@ class GameScene extends TBX.Scene2D
 		this._Player.Paint.R = playerValue;
 		this._Player.Paint.G = playerValue;
 		this._Player.Paint.B = playerValue;
-
-		// same for level ¯\_(ツ)_/¯
 	}
 }

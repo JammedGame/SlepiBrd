@@ -5,6 +5,7 @@ import { GameScene, DayState } from "../GameScene";
 
 class Wall extends TBX.Tile
 {
+	public IsWall: boolean = true;
     private _BasePosition:TBX.Vertex;
     public constructor(Position?:TBX.Vertex)
     {

@@ -1,13 +1,17 @@
 export { Player }
 
 import * as TBX from "toybox-engine";
+import { Wall } from "./Wall";
+import { Fuel } from "./Fuel";
+import { GameScene, DayState } from "../GameScene";
 
 class Player extends TBX.Tile
 {
+	public Fuel:number;
     private _SpeedFactor:number;
-    private _Scene:TBX.Scene2D;
+    private _Scene:GameScene;
     private _Velocity:TBX.Vertex;
-    public constructor(Old?:Player, Scene?:TBX.Scene2D)
+    public constructor(Old?:Player, Scene?:GameScene)
     {
         super(Old);
         this._Scene = Scene;
@@ -22,6 +26,7 @@ class Player extends TBX.Tile
     }
     private Init() : void
     {
+		this.Fuel = 0;
         this._SpeedFactor = 0;
         this.Size = new TBX.Vertex(60,60,1);
         this.Position = new TBX.Vertex(200,400,0.4);
@@ -31,6 +36,7 @@ class Player extends TBX.Tile
     }
     public Reset() : void
     {
+		this.Fuel = 0;
         this._SpeedFactor = 0;
         this.Position = new TBX.Vertex(200,400,0.4);
         this._Velocity = new TBX.Vertex();
@@ -54,7 +60,17 @@ class Player extends TBX.Tile
         TBX.CollisionUtil.Check(this, this._Scene);
         if(this.Collision.Result.Collision)
         {
-            this.GameOver();
+			for (let collider of this.Collision.Result.Colliders)
+			{
+				if (collider.Reference.IsWall)
+				{
+					this.GameOver();
+				}
+				else if (collider.Reference.IsFuel)
+				{
+					this.AddFuel(collider.Reference);
+				}
+			}
         }
     }
     public Move(Direction: number) : void
@@ -64,5 +80,18 @@ class Player extends TBX.Tile
     private GameOver() : void
     {
         TBX.Runner.Current.SwitchScene("GameOver");
-    }
+	}
+	private AddFuel(fuel:Fuel) : void
+	{
+		fuel.Destroy();
+		if (this._Scene.State == DayState.Night)
+		{
+			console.log("tried to add fuel at night ¯|_(ツ)_/¯");
+		}
+		else 
+		{
+			this.Fuel++;
+			console.log("added fuel", this.Fuel);
+		}
+	}
 }
