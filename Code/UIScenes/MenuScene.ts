@@ -30,11 +30,11 @@ class MenuScene extends UIScene
         this._Title.Text = "SUMRAK";
         this._Title.TextSize = 96;
         this._OverColor = TBX.Color.White;
-        this._Play = this.CreateButton("Play", 0);
+        this._Play = this.CreateButton("PLAY", 0);
         this._Play.Events.Click.push(this.PlayClick);
-        this._Settings = this.CreateButton("Settings", 1);
+        this._Settings = this.CreateButton("SETTINGS", 1);
         this._Settings.Events.Click.push(this.SettingsClick);
-        this._Credits = this.CreateButton("Credits", 2);
+        this._Credits = this.CreateButton("CREDITS", 2);
         this._Credits.Events.Click.push(this.CreditsClick);
     }
     private PlayClick() : void

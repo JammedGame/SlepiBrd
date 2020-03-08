@@ -29,7 +29,7 @@ class SettingsScene extends UIScene
     private InitSettingsScene() : void
     {
         this.Name = "Settings";
-        this._Title.Text = "Settings";
+        this._Title.Text = "SETTINGS";
         this.CreateBackground("Dark");
         this._OverColor = TBX.Color.White;
         this._MasterVolume = this.CreateSlider("Master Volume", SoundManager.MasterVolume, 0);
@@ -38,7 +38,7 @@ class SettingsScene extends UIScene
         this._MusicVolume.Change.push(this.UpdateMusicVolume);
         this._SoundVolume = this.CreateSlider("Effect Volume", SoundManager.SoundVolume, 2);
         this._SoundVolume.Change.push(this.UpdateSoundVolume);
-        this._Back = this.CreateButton("Back", 3);
+        this._Back = this.CreateButton("BACK", 3);
         this._Back.Events.Click.push(this.BackClick);
     }
     private UpdateMasterVolume(Value:number) : void
