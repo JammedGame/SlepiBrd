@@ -80,12 +80,12 @@ class Level
     }
     private GenerateObstacle(Offset:number) : void
     {
-        let Location:number = TBX.Random.Next(250,930);
+        let Location:number = TBX.Random.Next(350, 830);
         this._Obstacles.push(new WallGroup(this._Scene, new TBX.Vertex(Offset, Location)));
 	}
 	private GenerateFuel(Offset:number) : void
 	{
-		let Location:number = TBX.Random.Next(250, 930);
+		let Location:number = TBX.Random.Next(350, 830);
 		this._Fuels.push(new Fuel(this._Scene, new TBX.Vertex(Offset, Location)));
 	}
     private ApplyRadar(Radar: Radar) : void

@@ -5,13 +5,22 @@ import { GameScene, DayState } from "../GameScene";
 
 class Wall extends TBX.Tile
 {
+    public static Collection: TBX.ImageCollection;
 	public IsWall: boolean = true;
     private _BasePosition:TBX.Vertex;
     public constructor(Position?:TBX.Vertex)
     {
         super();
+        if(!Wall.Collection)
+        {
+            Wall.Collection = new TBX.ImageCollection(null, ["Resources/Textures/pillar0.png", "Resources/Textures/pillar1.png", "Resources/Textures/pillar2.png"]);
+        }
+        this.Collection = Wall.Collection;
         this._BasePosition = Position;
-        this.Size = new TBX.Vertex(80, 1000, 1);
+        this.Size = new TBX.Vertex(80, 750, 1);
+        this.Index = TBX.Random.Next(0, 2);
+        let Flip:boolean = TBX.Random.Next(0, 1) > 0;
+        this.FlipX = Flip;
         this.Position = new TBX.Vertex(Position.X, Position.Y, 0.4);
         this.Paint = TBX.Color.Black;
         this.Collision.Active = true;

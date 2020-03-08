@@ -19,10 +19,10 @@ class WallGroup {
         this._Offset = 0;
         this._EnlightenedDuration = 0;
         this._BasePosition = Position;
-        this._Direction = (Math.random() - 0.5) * 2;
-        this._MaxOffset = TBX.Random.Next(200, 300);
-        this._Upper = new Wall(new TBX.Vertex(Position.X, Position.Y - 700));
-        this._Lower = new Wall(new TBX.Vertex(Position.X, Position.Y + 700));
+        this._Direction = (Math.random() - 0.5) * 5;
+        this._MaxOffset = TBX.Random.Next(50, 100);
+        this._Upper = new Wall(new TBX.Vertex(Position.X, Position.Y - 550));
+        this._Lower = new Wall(new TBX.Vertex(Position.X, Position.Y + 550));
         this._Scene.Attach(this._Upper);
         this._Scene.Attach(this._Lower);
     }
@@ -32,8 +32,8 @@ class WallGroup {
             if (Math.abs(this._Offset) > this._MaxOffset) {
                 this._Direction *= -1;
             }
-            this._Upper.Position.Y = this._BasePosition.Y - 700 + this._Offset;
-            this._Lower.Position.Y = this._BasePosition.Y + 700 + this._Offset;
+            this._Upper.Position.Y = this._BasePosition.Y - 550 + this._Offset;
+            this._Lower.Position.Y = this._BasePosition.Y + 550 + this._Offset;
         }
         let Current: number = this._Upper.Paint.R;
         if (this._Scene.State == DayState.Night) {
