@@ -40,17 +40,24 @@ class Level
         this._Radars.forEach(Radar =>
         {
             Radar.Update();
+            if(Radar.Complete)
+            {
+                this._Scene.Remove(Radar);
+            }
             if(this._Scene.State == DayState.Night)
             {
                 this.ApplyRadar(Radar);
             }
-        })
+        });
+        this._Radars = this._Radars.filter(Radar => !Radar.Complete);
         this._Obstacles.forEach(Obstacle => Obstacle.Update());
     }
     public CreateRadar() : void
     {
         let Position: number = -this._Scene.Trans.Translation.X;
-        this._Radars.push(new Radar(Position, this._Scene.Player.Speed * 5));
+        let R: Radar = new Radar(Position, this._Scene.Player.Speed * 5);
+        this._Radars.push(R);
+        this._Scene.Attach(R);
     }
     public Reset() : void
     {
@@ -71,7 +78,7 @@ class Level
     {
         this._Obstacles.forEach(Group =>
         {
-            if(Math.abs(Group.Position.X - Radar.Position) < 100)
+            if(Math.abs(Group.Position.X - Radar.XPosition) < 100)
             {
                 Group.Enlighten();
             }
