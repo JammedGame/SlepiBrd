@@ -22,9 +22,12 @@ class Level
     private Init() : void
     {
         this._Obstacles = [];
-        for(let i = 0; i < 100; i++)
+        let CurrentOffset = 0;
+        for(let i = 0; i < 300; i++)
         {
-            this.GenerateObstacle(i * 400 + 540);
+            let Offset:number = TBX.Random.Next(800,1400);
+            CurrentOffset += Offset;
+            this.GenerateObstacle(800 + CurrentOffset);
         }
     }
     public Reset() : void
