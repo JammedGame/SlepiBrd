@@ -5,9 +5,18 @@ import * as TBX from "toybox-engine";
 import { Level } from "./Elements/Level";
 import { Player } from "./Elements/Player";
 
-class GameScene extends TBX.Scene2D
+enum DayState
 {
+    Day = "Day",
+    DayToNight = "DayToNight",
+    Night = "Night",
+    NightToDay = "NightToDay"
+}
+
+class GameScene extends TBX.Scene2D
+{   
     public static Current:GameScene;
+    public State: DayState;
     private _Level:Level;
     private _Player:Player;
     private _Score:number;
@@ -30,6 +39,7 @@ class GameScene extends TBX.Scene2D
     }
     private InitGameScene() : void
     {
+        this.State = DayState.Day;
         this.Name = "Game";
         this.CreateBackground("Light");
         this.Events.Click.push(this.Click.bind(this));
