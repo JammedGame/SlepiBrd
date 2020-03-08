@@ -7,6 +7,7 @@ import { GameScene, DayState } from "../GameScene";
 
 class Player extends TBX.Tile
 {
+    public static Collection: TBX.ImageCollection;
 	public Fuel:number;
     private _SpeedFactor:number;
     private _Scene:GameScene;
@@ -27,6 +28,12 @@ class Player extends TBX.Tile
     }
     private Init() : void
     {
+        if(!Player.Collection)
+        {
+            Player.Collection = new TBX.ImageCollection(null, ["Resources/Textures/craft.png"]);
+        }
+		this.Collection = Player.Collection;
+		this.Index = 0;
 		this.Fuel = GameScene.FuelInitial;
         this._SpeedFactor = 0;
         this.Size = new TBX.Vertex(60,60,1);
