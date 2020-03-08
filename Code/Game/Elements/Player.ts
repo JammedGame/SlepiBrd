@@ -27,7 +27,7 @@ class Player extends TBX.Tile
     }
     private Init() : void
     {
-		this.Fuel = 0;
+		this.Fuel = GameScene.FuelInitial;
         this._SpeedFactor = 0;
         this.Size = new TBX.Vertex(60,60,1);
         this.Position = new TBX.Vertex(200,400,0.4);
@@ -37,7 +37,7 @@ class Player extends TBX.Tile
     }
     public Reset() : void
     {
-		this.Fuel = 0;
+		this.Fuel = GameScene.FuelInitial;
         this._SpeedFactor = 0;
         this.Position = new TBX.Vertex(200,400,0.4);
         this._Velocity = new TBX.Vertex();

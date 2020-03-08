@@ -16,7 +16,8 @@ enum DayState
 class GameScene extends TBX.Scene2D
 {   
 	public static Current:GameScene;
-	public static FuelPerBox:number = 2;
+	public static FuelInitial:number = 5;
+	public static FuelPerBox:number = 1;
 	public static CycleLength:number = 60; // seconds
 	public static DayToNightPercentage:number = 0.45;
 	public static NightPercentage:number = 0.5;
