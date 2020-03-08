@@ -1,0 +1,4 @@
+/node_modules
+/tscompiled
+/build/sumrak.js
+package-lock.json
