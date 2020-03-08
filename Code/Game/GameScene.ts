@@ -26,7 +26,8 @@ class GameScene extends TBX.Scene2D
     private _Level:Level;
     private _Player:Player;
     private _Score:number;
-    private _ScoreLabel:TBX.Label;
+	private _ScoreLabel:TBX.Label;
+	private _FuelLabel:TBX.Label;
     private _GoUp:boolean;
 	private _GoDown:boolean;
 	private _Back:TBX.Tile;
@@ -58,12 +59,14 @@ class GameScene extends TBX.Scene2D
         this._Level = new Level(null, this);
         this._Player = new Player(null, this);
         this._Score = 0;
-        this._ScoreLabel = this.CreateLabel("0");
+		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(960, 100, 0.2));
+		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(160, 100, 0.2));
     }
     public Reset() : void
     {
 		this.State = DayState.Day;
-        this._ScoreLabel.Text = "0";
+		this._ScoreLabel.Text = "SCORE: 0";
+		this._FuelLabel.Text = "FUEL: 0";
         this._Player.Reset();
         this._Level.Reset();
 		this._CycleProgress = 0;
@@ -75,8 +78,10 @@ class GameScene extends TBX.Scene2D
         this._Level.Update();
         this._Player.Update();
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
-        this._ScoreLabel.Text = this._Player.Fuel.toString();
+        this._ScoreLabel.Text = "SCORE: " + this._Score.toString();
 		this._ScoreLabel.Update();
+		this._FuelLabel.Text = "FUEL: " + this._Player.Fuel.toString();
+		this._FuelLabel.Update();
 		this.UpdateDayState();
 	}
     private Click(G:TBX.Game, Args:any) : void
@@ -121,12 +126,12 @@ class GameScene extends TBX.Scene2D
         this._Back.Fixed = true;
         this.Attach(this._Back);
     }
-    protected CreateLabel(Text:string) : TBX.Label
+    protected CreateLabel(Text:string, Position:TBX.Vertex) : TBX.Label
     {
         let Label:TBX.Label = new TBX.Label(null, Text);
         Label.Size = new TBX.Vertex(800, 80);
         Label.TextSize = 60;
-        Label.Position = new TBX.Vertex(960, 100, 0.2);
+        Label.Position = Position;
         Label.ForeColor = TBX.Color.Black;
         Label.Border.Width = 0;
         this.Attach(Label);
@@ -182,5 +187,9 @@ class GameScene extends TBX.Scene2D
 		this._ScoreLabel.ForeColor.R = playerValue;
 		this._ScoreLabel.ForeColor.G = playerValue;
 		this._ScoreLabel.ForeColor.B = playerValue;
+
+		this._FuelLabel.ForeColor.R = playerValue;
+		this._FuelLabel.ForeColor.G = playerValue;
+		this._FuelLabel.ForeColor.B = playerValue;
 	}
 }
