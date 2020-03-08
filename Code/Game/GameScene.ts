@@ -16,10 +16,10 @@ enum DayState
 class GameScene extends TBX.Scene2D
 {   
 	public static Current:GameScene;
-	public static CycleLength:number = 10; // seconds
-	public static DayToNightPercentage:number = 0.25;
+	public static CycleLength:number = 60; // seconds
+	public static DayToNightPercentage:number = 0.4;
 	public static NightPercentage:number = 0.5;
-	public static NightToDayPercentage:number = 0.75;
+	public static NightToDayPercentage:number = 0.9;
 	public State: DayState;
 	private _CycleProgress:number;
     private _Level:Level;
