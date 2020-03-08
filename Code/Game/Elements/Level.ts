@@ -2,12 +2,14 @@ export { Level }
 
 import * as TBX from "toybox-engine";
 import { Wall } from "./Wall";
+import { WallGroup } from "./WallGroup";
+import { GameScene } from "../GameScene";
 
 class Level
 {
-    private _Scene:TBX.Scene2D;
-    private _Obstacles: Wall[];
-    public constructor(Old?:Level, Scene?:TBX.Scene2D)
+    private _Scene:GameScene;
+    private _Obstacles: WallGroup[];
+    public constructor(Old?:Level, Scene?:GameScene)
     {
         this._Scene = Scene;
         if(Old)
@@ -30,11 +32,15 @@ class Level
             this.GenerateObstacle(800 + CurrentOffset);
         }
     }
+    public Update() : void
+    {
+        this._Obstacles.forEach(Obstacle => Obstacle.Update());
+    }
     public Reset() : void
     {
         for(let i = 0; i < this._Obstacles.length; i++)
         {
-            this._Scene.Remove(this._Obstacles[i]);
+            this._Obstacles[i].Destroy();
         }
         this._Obstacles = [];
         this.Init();
@@ -42,11 +48,6 @@ class Level
     private GenerateObstacle(Offset:number) : void
     {
         let Location:number = TBX.Random.Next(250,930);
-        let UpperTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location - 700));
-        this._Obstacles.push(UpperTile);
-        let LowerTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location + 700));
-        this._Obstacles.push(LowerTile);
-        this._Scene.Attach(UpperTile);
-        this._Scene.Attach(LowerTile);
+        this._Obstacles.push(new WallGroup(this._Scene, new TBX.Vertex(Offset, Location)));
     }
 }

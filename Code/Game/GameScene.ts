@@ -1,4 +1,4 @@
-export { GameScene };
+export { GameScene, DayState };
 
 import * as TBX from "toybox-engine";
 
@@ -68,7 +68,8 @@ class GameScene extends TBX.Scene2D
     private Update() : void
     {
         if(this._GoUp) this._Player.Move(-1);
-		if(this._GoDown) this._Player.Move(1);
+        if(this._GoDown) this._Player.Move(1);
+        this._Level.Update();
         this._Player.Update();
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
         this._ScoreLabel.Text = this._Score.toString();
