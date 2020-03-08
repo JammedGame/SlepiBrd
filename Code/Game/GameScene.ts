@@ -60,8 +60,8 @@ class GameScene extends TBX.Scene2D
         this._Level = new Level(null, this);
         this._Player = new Player(null, this);
         this._Score = 0;
-		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(960, 100, 0.2));
-		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(160, 100, 0.2));
+		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(160, 60, 0.2));
+		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(130, 130, 0.2));
     }
     public Reset() : void
     {
@@ -93,7 +93,7 @@ class GameScene extends TBX.Scene2D
     {
         if(Args.KeyCode == 32)
         {
-            if(this.State == DayState.Night && this._Player.Fuel > 0)
+            if((this.State == DayState.Night  || this.State == DayState.DayToNight) && this._Player.Fuel > 0)
             {
 				this._Player.Fuel -= 1;
                 this._Level.CreateRadar();
