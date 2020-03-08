@@ -45,7 +45,7 @@ class SoundManager
         this._MasterVolume = DEFAULT_MASTER_VOLUME;
         this._MusicVolume = DEFAULT_MUSIC_VOLUME;
         this._SoundVolume = DEFAULT_SOUND_VOLUME;
-        this._Music = new TBX.SoundObject("Resources/Sounds/Music.mp3");
+        this._Music = new TBX.SoundObject("Resources/Sounds/RiotJam.mp3");
         this._Music.Volume = VOLUME_FACTOR * DEFAULT_MUSIC_VOLUME;
         this._Music.Looped = true;
         this._Music.Play();
