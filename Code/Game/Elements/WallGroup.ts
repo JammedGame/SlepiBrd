@@ -42,12 +42,12 @@ class WallGroup {
         if (this._Scene.State == DayState.Night) {
             if (this._EnlightenedDuration > 0) this._EnlightenedDuration--;
             if (this._EnlightenedDuration > 0 && this._Upper.Paint.R < 255) {
-                Current += 5;
+                Current += 15;
                 this._Upper.Paint.R = this._Upper.Paint.G = this._Upper.Paint.B = Current;
                 this._Lower.Paint.R = this._Lower.Paint.G = this._Lower.Paint.B = Current;
             }
             if (this._EnlightenedDuration == 0 && this._Upper.Paint.R > 0) {
-                Current -= 1;
+                Current -= 5;
                 this._Upper.Paint.R = this._Upper.Paint.G = this._Upper.Paint.B = Current;
                 this._Lower.Paint.R = this._Lower.Paint.G = this._Lower.Paint.B = Current;
             }
@@ -65,6 +65,6 @@ class WallGroup {
         this._Lower = null;
     }
     public Enlighten(): void {
-        this._EnlightenedDuration = 75;
+        this._EnlightenedDuration = 20;
     }
 }

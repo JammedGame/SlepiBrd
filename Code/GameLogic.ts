@@ -27,7 +27,7 @@ class GameLogic
     }
     private Init() : void
     {
-        TBX.Settings.GlobalFontFamily = "Segoe UI";
+        TBX.Settings.GlobalFontFamily = "Russo One";
         if(window.location.href.indexOf("itch.io") != -1)
         {
             TBX.Settings.GlobalFontScale = 0.67;
