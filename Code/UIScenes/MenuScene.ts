@@ -27,9 +27,9 @@ class MenuScene extends UIScene
     {
         this.Name = "Menu";
         this.CreateBackground("Dark");
-        this._Title.Text = TBX.Runner.Current.Game.Name;
-        this._Title.TextSize = 70;
-        this._OverColor = TBX.Color.FromRGBA(23,38,49,255);
+        this._Title.Text = "SUMRAK";
+        this._Title.TextSize = 96;
+        this._OverColor = TBX.Color.White;
         this._Play = this.CreateButton("Play", 0);
         this._Play.Events.Click.push(this.PlayClick);
         this._Settings = this.CreateButton("Settings", 1);

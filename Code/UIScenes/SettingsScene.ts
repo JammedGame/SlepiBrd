@@ -31,7 +31,7 @@ class SettingsScene extends UIScene
         this.Name = "Settings";
         this._Title.Text = "Settings";
         this.CreateBackground("Dark");
-        this._OverColor = TBX.Color.FromRGBA(23,38,49,255);
+        this._OverColor = TBX.Color.White;
         this._MasterVolume = this.CreateSlider("Master Volume", SoundManager.MasterVolume, 0);
         this._MasterVolume.Change.push(this.UpdateMasterVolume);
         this._MusicVolume = this.CreateSlider("Music Volume", SoundManager.MusicVolume, 1);

@@ -12,6 +12,8 @@ class GameScene extends TBX.Scene2D
     private _Player:Player;
     private _Score:number;
     private _ScoreLabel:TBX.Label;
+    private _GoUp:boolean;
+    private _GoDown:boolean;
     public get Score():number { return this._Score; }
     public constructor(Old?:GameScene)
     {
@@ -47,6 +49,8 @@ class GameScene extends TBX.Scene2D
     }
     private Update() : void
     {
+        if(this._GoUp) this._Player.Move(-1);
+        if(this._GoDown) this._Player.Move(1);
         this._Player.Update();
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
         this._ScoreLabel.Text = this._Score.toString();
@@ -54,18 +58,31 @@ class GameScene extends TBX.Scene2D
     }
     private Click(G:TBX.Game, Args:any) : void
     {
-        this._Player.Jump();
+        //this._Player.Jump();
     }
     private KeyDown(G:TBX.Game, Args:any) : void
     {
-        if(Args.KeyCode == 32)
+        if(Args.KeyCode == 38 || Args.KeyCode == 83)
         {
-            this._Player.Jump();
+            this._GoUp = true;
+            this._GoDown = false;
+        }
+        if(Args.KeyCode == 40 || Args.KeyCode == 87)
+        {
+            this._GoDown = true;
+            this._GoUp = false;
         }
     }
     private KeyUp(G:TBX.Game, Args:any) : void
     {
-        //TOFILL
+        if(Args.KeyCode == 38 || Args.KeyCode == 83)
+        {
+            this._GoUp = false;
+        }
+        if(Args.KeyCode == 40 || Args.KeyCode == 87)
+        {
+            this._GoDown = false;
+        }
     }
     protected CreateBackground(Name:string) : void
     {

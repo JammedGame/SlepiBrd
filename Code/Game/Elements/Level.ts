@@ -1,11 +1,12 @@
 export { Level }
 
 import * as TBX from "toybox-engine";
+import { Wall } from "./Wall";
 
 class Level
 {
     private _Scene:TBX.Scene2D;
-    private _Obstacles:TBX.Tile[];
+    private _Obstacles: Wall[];
     public constructor(Old?:Level, Scene?:TBX.Scene2D)
     {
         this._Scene = Scene;
@@ -38,17 +39,9 @@ class Level
     private GenerateObstacle(Offset:number) : void
     {
         let Location:number = TBX.Random.Next(350,830);
-        let UpperTile:TBX.Tile = new TBX.Tile();
-        UpperTile.Size = new TBX.Vertex(80, Location - 150, 1);
-        UpperTile.Position = new TBX.Vertex(Offset, UpperTile.Size.Y / 2, 0.4);
-        UpperTile.Paint = TBX.Color.FromRGBA(23,38,49,255);
-        UpperTile.Collision.Active = true;
+        let UpperTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location));
         this._Obstacles.push(UpperTile);
-        let LowerTile:TBX.Tile = new TBX.Tile();
-        LowerTile.Size = new TBX.Vertex(80, 930 - Location, 1);
-        LowerTile.Position = new TBX.Vertex(Offset, Location + 150 + LowerTile.Size.Y / 2, 0.4);
-        LowerTile.Paint = TBX.Color.FromRGBA(23,38,49,255);
-        LowerTile.Collision.Active = true;
+        let LowerTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location + 500));
         this._Obstacles.push(LowerTile);
         this._Scene.Attach(UpperTile);
         this._Scene.Attach(LowerTile);

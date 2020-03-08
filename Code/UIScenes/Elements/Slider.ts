@@ -26,13 +26,13 @@ class Slider extends TBX.Tile
     public Init(Text?:string, Value?:number) : void
     {
         this._Percent = Value;
-        this.Size = new TBX.Vertex(800, 50, 1);
+        this.Size = new TBX.Vertex(800, 30, 1);
         this.Paint = TBX.Color.FromString("#444444");
-        this._Pointer = TBX.SceneObjectUtil.CreateTile("SliderPointer", null, new TBX.Vertex(), new TBX.Vertex(800, 50, 1));
-        this._Pointer.Paint = TBX.Color.FromRGBA(244,208,63,255);
+        this._Pointer = TBX.SceneObjectUtil.CreateTile("SliderPointer", null, new TBX.Vertex(), new TBX.Vertex(800, 30, 1));
+        this._Pointer.Paint = TBX.Color.White;
         this.Events.Click.push(this.Click.bind(this));
         this._Label = new TBX.Label(null, Text);
-        this._Label.ForeColor = TBX.Color.FromRGBA(244,208,63,255);
+        this._Label.ForeColor = TBX.Color.White;
         this._Label.Size = new TBX.Vertex(960, 45);
         this._Label.TextSize = 30;
         this._Label.Border.Width = 0;

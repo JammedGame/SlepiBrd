@@ -23,7 +23,7 @@ class Player extends TBX.Tile
     {
         this.Size = new TBX.Vertex(60,60,1);
         this.Position = new TBX.Vertex(200,400,0.4);
-        this.Paint = TBX.Color.FromRGBA(23,38,49,255);
+        this.Paint = TBX.Color.Black;
         this._Scene.Attach(this);
         this._Velocity = new TBX.Vertex();
     }
@@ -35,13 +35,17 @@ class Player extends TBX.Tile
     }
     public Update() : void
     {
-        this._Velocity.Y -= 1;
+        this._Velocity.Y -= 0.3* (this._Velocity.Y / Math.abs(this._Velocity.Y));
         this.Position.Add(this._Velocity.Copy().Scalar(-1));
         this.Position.X += 2;
         this._Scene.Trans.Translation.X -= 2;
+        if(this.Position.Y < 0)
+        {
+            this.Position.Y = 0;
+        }
         if(this.Position.Y > 1110)
         {
-            this.GameOver();
+            this.Position.Y = 1110;
         }
         TBX.CollisionUtil.Check(this, this._Scene);
         if(this.Collision.Result.Collision)
@@ -49,9 +53,9 @@ class Player extends TBX.Tile
             this.GameOver();
         }
     }
-    public Jump() : void
+    public Move(Direction: number) : void
     {
-        this._Velocity.Y = 20;
+        this._Velocity.Y = 8 * Direction;
     }
     private GameOver() : void
     {

@@ -27,9 +27,9 @@ class UIScene extends TBX.Scene2D
         this._Title = new TBX.Label(null, "Title");
         this._Title.Size = new TBX.Vertex(1920,200,1);
         this._Title.Position = new TBX.Vertex(960,300);
-        this._Title.BackColor = TBX.Color.FromRGBA(255,255,255,0);
+        this._Title.BackColor = TBX.Color.FromRGBA(0,0,0,0);
         this._Title.Border.Width = 0;
-        this._Title.ForeColor = TBX.Color.FromRGBA(244,208,63,255);
+        this._Title.ForeColor = TBX.Color.FromRGBA(255,255,255,255);
         this._Title.TextSize = 60;
         this.Attach(this._Title);
     }
@@ -44,10 +44,11 @@ class UIScene extends TBX.Scene2D
         Button.Name = Text;
         Button.Position = new TBX.Vertex(960, 500 + 120 * Order, 0.2);
         Button.Padding = 0;
-        Button.ForeColor = this._OverColor;
-        Button.BackColor = TBX.Color.FromRGBA(244,208,63,255);
-        Button.Border.Width = 0;
-        Button.Border.Radius = 2;
+        Button.ForeColor = TBX.Color.FromRGBA(255,255,255,255);
+        Button.BackColor = TBX.Color.FromRGBA(0,0,0,0);
+        Button.Border.Width = 2;
+        Button.Border.Radius = 20;
+        Button.Border.Color = TBX.Color.White;
         this.Attach(Button);
         return Button;
     }
@@ -58,7 +59,7 @@ class UIScene extends TBX.Scene2D
         Label.Size = new TBX.Vertex(800, 50);
         Label.TextSize = 30;
         Label.Position = new TBX.Vertex(960, 400 + 60 * Order, 0.2);
-        Label.ForeColor = TBX.Color.FromRGBA(244,208,63,255);
+        Label.ForeColor = TBX.Color.FromRGBA(255,255,255,255);
         Label.Border.Width = 0;
         this.Attach(Label);
         return Label;

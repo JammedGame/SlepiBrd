@@ -31,10 +31,10 @@ class LoadingScene extends UIScene
         this.CreateBackground("Dark");
         this._Title.Text = TBX.Runner.Current.Game.Name;
         this._Title.TextSize = 70;
-        this._OverColor = TBX.Color.FromRGBA(23,38,49,255);
+        this._OverColor = TBX.Color.White
         this._Progress = new TBX.ProgressBar();
         this._Progress.ChangeTargetScene(MenuScene.Current);
-        this._Progress.Indicator.Paint = TBX.Color.FromRGBA(244,208,63,255);
+        this._Progress.Indicator.Paint = TBX.Color.White
         this.Attach(this._Progress);
         MenuScene.Current.Events.LoadComplete.push(this.LoadMenuSceneFinished.bind(this));
         TBX.Runner.Current.PreloadScene("Menu");

@@ -26,13 +26,11 @@ class CreditsScene extends UIScene
         this.Name = "Credits";
         this._Title.Text = "Credits";
         this.CreateBackground("Dark");
-        this._OverColor = TBX.Color.FromRGBA(23,38,49,255);
-        this.CreateLabel("Johann Kraus", 0);
-        this.CreateLabel("Benjamin Daimio", 1);
-        this.CreateLabel("Elizabeth Sherman", 2);
-        this.CreateLabel("Anung Un Rama", 3);
-        this.CreateLabel("Langdon Everett Caul", 4);
-        this.CreateLabel("special thanks to Roger", 5);
+        this._OverColor = TBX.Color.FromRGBA(0,0,0,255);
+        this.CreateLabel("Đorđe Cvijić", 0);
+        this.CreateLabel("Suzana Miladinov", 1);
+        this.CreateLabel("Miloš Manojlović", 2);
+        this.CreateLabel("Žarko Goronja", 3);
         this._Back = this.CreateButton("Back", 3);
         this._Back.Events.Click.push(this.BackClick);
     }
