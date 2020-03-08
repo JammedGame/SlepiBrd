@@ -36,7 +36,10 @@ class Level
             let Offset:number = TBX.Random.Next(800,1400);
             CurrentOffset += Offset;
 			this.GenerateObstacle(800 + CurrentOffset);
-			this.GenerateFuel(800 + CurrentOffset + 0.5 * Offset);
+			if (TBX.Random.Next(0, 99) < GameScene.FuelProbability * 100)
+			{
+				this.GenerateFuel(800 + CurrentOffset + 0.5 * Offset);
+			}
         }
     }
     public Update() : void

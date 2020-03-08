@@ -18,6 +18,7 @@ class GameScene extends TBX.Scene2D
 	public static Current:GameScene;
 	public static FuelInitial:number = 5;
 	public static FuelPerBox:number = 1;
+	public static FuelProbability:number = 0.66;
 	public static CycleLength:number = 60; // seconds
 	public static DayToNightPercentage:number = 0.45;
 	public static NightPercentage:number = 0.5;
@@ -60,14 +61,14 @@ class GameScene extends TBX.Scene2D
         this._Level = new Level(null, this);
         this._Player = new Player(null, this);
         this._Score = 0;
-		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(160, 60, 0.2));
-		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(130, 130, 0.2));
+		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(200, 60, 0.2));
+		this._FuelLabel = this.CreateLabel("RADAR: 0", new TBX.Vertex(200, 130, 0.2));
     }
     public Reset() : void
     {
 		this.State = DayState.Day;
 		this._ScoreLabel.Text = "SCORE: 0";
-		this._FuelLabel.Text = "FUEL: 0";
+		this._FuelLabel.Text = "RADAR: 0";
         this._Player.Reset();
         this._Level.Reset();
 		this._CycleProgress = 0;
@@ -81,7 +82,7 @@ class GameScene extends TBX.Scene2D
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
         this._ScoreLabel.Text = "SCORE: " + this._Score.toString();
 		this._ScoreLabel.Update();
-		this._FuelLabel.Text = "FUEL: " + this._Player.Fuel.toString();
+		this._FuelLabel.Text = "RADAR: " + this._Player.Fuel.toString();
 		this._FuelLabel.Update();
 		this.UpdateDayState();
 	}
