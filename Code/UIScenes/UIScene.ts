@@ -43,11 +43,12 @@ class UIScene extends TBX.Scene2D
         let Button:TBX.Button = new TBX.Button(null, Text);
         Button.Name = Text;
         Button.Position = new TBX.Vertex(960, 500 + 120 * Order, 0.2);
-        Button.Padding = 0;
+        Button.Size = new TBX.Vertex(350, 100, 1);
+        Button.Padding = 17;
         Button.ForeColor = TBX.Color.FromRGBA(255,255,255,255);
         Button.BackColor = TBX.Color.FromRGBA(0,0,0,0);
         Button.Border.Width = 2;
-        Button.Border.Radius = 20;
+        Button.Border.Radius = 8;
         Button.Border.Color = TBX.Color.White;
         this.Attach(Button);
         return Button;
