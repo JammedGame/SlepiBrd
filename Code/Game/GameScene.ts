@@ -27,7 +27,8 @@ class GameScene extends TBX.Scene2D
     private _Score:number;
     private _ScoreLabel:TBX.Label;
     private _GoUp:boolean;
-    private _GoDown:boolean;
+	private _GoDown:boolean;
+	private _Back:TBX.Tile;
     public get Score():number { return this._Score; }
     public constructor(Old?:GameScene)
     {
@@ -105,9 +106,9 @@ class GameScene extends TBX.Scene2D
     }
     protected CreateBackground(Name:string) : void
     {
-        let Back:TBX.Tile = TBX.SceneObjectUtil.CreateTile(Name, ["Resources/Textures/Backgrounds/"+Name+".png"], new TBX.Vertex(960,540), new TBX.Vertex(1920, 1080, 1));
-        Back.Fixed = true;
-        this.Attach(Back);
+        this._Back = TBX.SceneObjectUtil.CreateTile(Name, ["Resources/Textures/Backgrounds/"+Name+".png"], new TBX.Vertex(960,540), new TBX.Vertex(1920, 1080, 1));
+        this._Back.Fixed = true;
+        this.Attach(this._Back);
     }
     protected CreateLabel(Text:string) : TBX.Label
     {
@@ -133,20 +134,40 @@ class GameScene extends TBX.Scene2D
 		
 		if (expectedState != this.State)
 		{
-			this.State = expectedState;
 			console.log("day state changed", expectedState);
-
-			switch (expectedState)
-			{
-				case DayState.Day:
-					break;
-				case DayState.DayToNight:
-					break;
-				case DayState.Night:
-					break;
-				case DayState.NightToDay:
-					break;
-			}
+			this.State = expectedState;
 		}
+
+		this.ApplyDayState();
+	}
+	private ApplyDayState()
+	{
+		let backgroundValue:number;
+		switch (this.State)
+		{
+			case DayState.Day:
+				backgroundValue = 255;
+				break;
+			case DayState.DayToNight:
+				backgroundValue = 255 * (1 - (this._CycleProgress - GameScene.DayToNightPercentage) / (GameScene.NightPercentage - GameScene.DayToNightPercentage));
+				break;
+			case DayState.NightToDay:
+				backgroundValue = 255 * (this._CycleProgress - GameScene.NightToDayPercentage) / (1 - GameScene.NightToDayPercentage);
+				break;
+			case DayState.Night:
+				backgroundValue = 0;
+				break;
+		}
+
+		this._Back.Paint.R = backgroundValue;
+		this._Back.Paint.G = backgroundValue;
+		this._Back.Paint.B = backgroundValue;
+
+		let playerValue:number = 255 - backgroundValue;
+		this._Player.Paint.R = playerValue;
+		this._Player.Paint.G = playerValue;
+		this._Player.Paint.B = playerValue;
+
+		// same for level ¯\_(ツ)_/¯
 	}
 }
