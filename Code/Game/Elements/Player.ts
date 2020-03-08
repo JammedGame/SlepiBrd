@@ -91,7 +91,7 @@ class Player extends TBX.Tile
 		}
 		else 
 		{
-			this.Fuel++;
+			this.Fuel += GameScene.FuelPerBox;
 			console.log("added fuel", this.Fuel);
 		}
 	}
