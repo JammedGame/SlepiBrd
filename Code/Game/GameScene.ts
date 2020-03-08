@@ -16,10 +16,11 @@ enum DayState
 class GameScene extends TBX.Scene2D
 {   
 	public static Current:GameScene;
+	public static FuelPerBox:number = 2;
 	public static CycleLength:number = 60; // seconds
-	public static DayToNightPercentage:number = 0.4;
+	public static DayToNightPercentage:number = 0.45;
 	public static NightPercentage:number = 0.5;
-	public static NightToDayPercentage:number = 0.9;
+	public static NightToDayPercentage:number = 0.95;
 	public State: DayState;
 	private _CycleProgress:number;
     private _Level:Level;
@@ -74,7 +75,7 @@ class GameScene extends TBX.Scene2D
         this._Level.Update();
         this._Player.Update();
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
-        this._ScoreLabel.Text = this._Score.toString();
+        this._ScoreLabel.Text = this._Player.Fuel.toString();
 		this._ScoreLabel.Update();
 		this.UpdateDayState();
 	}
@@ -86,8 +87,9 @@ class GameScene extends TBX.Scene2D
     {
         if(Args.KeyCode == 32)
         {
-            if(this.State == DayState.Night)
+            if(this.State != DayState.Day && this._Player.Fuel > 0)
             {
+				this._Player.Fuel -= 1;
                 this._Level.CreateRadar();
             }
         }
@@ -125,7 +127,7 @@ class GameScene extends TBX.Scene2D
         Label.Size = new TBX.Vertex(800, 80);
         Label.TextSize = 60;
         Label.Position = new TBX.Vertex(960, 100, 0.2);
-        Label.ForeColor = TBX.Color.FromRGBA(244,208,63,255);
+        Label.ForeColor = TBX.Color.Black;
         Label.Border.Width = 0;
         this.Attach(Label);
         return Label;
@@ -176,5 +178,9 @@ class GameScene extends TBX.Scene2D
 		this._Player.Paint.R = playerValue;
 		this._Player.Paint.G = playerValue;
 		this._Player.Paint.B = playerValue;
+
+		this._ScoreLabel.ForeColor.R = playerValue;
+		this._ScoreLabel.ForeColor.G = playerValue;
+		this._ScoreLabel.ForeColor.B = playerValue;
 	}
 }
