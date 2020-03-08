@@ -27,13 +27,13 @@ class GameOverScene extends UIScene
     private InitGameOverScene() : void
     {
         this.Name = "GameOver";
-        this._Title.Text = "Game Over";
+        this._Title.Text = "GAME OVER";
         this.CreateBackground("Dark");
         this._OverColor = TBX.Color.FromRGBA(23,38,49,255);
         this._ScoreLabel = this.CreateLabel("Your score is 0 points!", 0);
-        this._Retry = this.CreateButton("Retry", 2);
+        this._Retry = this.CreateButton("RETRY", 2);
         this._Retry.Events.Click.push(this.RetryClick);
-        this._Back = this.CreateButton("Menu", 3);
+        this._Back = this.CreateButton("MENU", 3);
         this._Back.Events.Click.push(this.BackClick);
         this.Events.KeyDown.push(this.KeyDown.bind(this));
     }

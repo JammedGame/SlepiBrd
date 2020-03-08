@@ -27,6 +27,9 @@ class WallGroup {
         this._Scene.Attach(this._Lower);
     }
     public Update(): void {
+
+        this._Upper.UpdateCollection(this._Scene.State != DayState.Night);
+        this._Lower.UpdateCollection(this._Scene.State != DayState.Night);
         if (this._Scene.State == DayState.Night) {
             this._Offset += this._Direction;
             if (Math.abs(this._Offset) > this._MaxOffset) {

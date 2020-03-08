@@ -87,7 +87,7 @@ class GameScene extends TBX.Scene2D
     {
         if(Args.KeyCode == 32)
         {
-            if(this.State == DayState.Night && this._Player.Fuel > 0)
+            if((this.State == DayState.Night  || this.State == DayState.DayToNight) && this._Player.Fuel > 0)
             {
 				this._Player.Fuel -= 1;
                 this._Level.CreateRadar();
