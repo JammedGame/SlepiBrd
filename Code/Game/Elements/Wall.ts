@@ -2,7 +2,7 @@ export { Wall }
 
 import * as TBX from "toybox-engine";
 
-class Wall extends TBX.Sprite
+class Wall extends TBX.Tile
 {
     private _Scene:TBX.Scene2D;
     public constructor(Old?:Wall, Scene?:TBX.Scene2D, Position?:TBX.Vertex)
@@ -23,6 +23,6 @@ class Wall extends TBX.Sprite
     }
     public Update() : void
     {
-        
+
     }
 }

@@ -38,10 +38,10 @@ class Level
     }
     private GenerateObstacle(Offset:number) : void
     {
-        let Location:number = TBX.Random.Next(350,830);
-        let UpperTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location));
+        let Location:number = TBX.Random.Next(250,930);
+        let UpperTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location - 700));
         this._Obstacles.push(UpperTile);
-        let LowerTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location + 500));
+        let LowerTile:Wall = new Wall(null, this._Scene, new TBX.Vertex(Offset, Location + 700));
         this._Obstacles.push(LowerTile);
         this._Scene.Attach(UpperTile);
         this._Scene.Attach(LowerTile);
