@@ -30,6 +30,7 @@ class GameScene extends TBX.Scene2D
 	private _GoDown:boolean;
 	private _Back:TBX.Tile;
     public get Score():number { return this._Score; }
+    public get Player():Player { return this._Player; }
     public constructor(Old?:GameScene)
     {
         super(Old);
@@ -83,12 +84,19 @@ class GameScene extends TBX.Scene2D
     }
     private KeyDown(G:TBX.Game, Args:any) : void
     {
-        if(Args.KeyCode == 38 || Args.KeyCode == 83)
+        if(Args.KeyCode == 32)
+        {
+            if(this.State == DayState.Night)
+            {
+                this._Level.CreateRadar();
+            }
+        }
+        if(Args.KeyCode == 40 || Args.KeyCode == 83)
         {
             this._GoUp = true;
             this._GoDown = false;
         }
-        if(Args.KeyCode == 40 || Args.KeyCode == 87)
+        if(Args.KeyCode == 38 || Args.KeyCode == 87)
         {
             this._GoDown = true;
             this._GoUp = false;
@@ -96,11 +104,11 @@ class GameScene extends TBX.Scene2D
     }
     private KeyUp(G:TBX.Game, Args:any) : void
     {
-        if(Args.KeyCode == 38 || Args.KeyCode == 83)
+        if(Args.KeyCode == 40 || Args.KeyCode == 83)
         {
             this._GoUp = false;
         }
-        if(Args.KeyCode == 40 || Args.KeyCode == 87)
+        if(Args.KeyCode == 38 || Args.KeyCode == 87)
         {
             this._GoDown = false;
         }

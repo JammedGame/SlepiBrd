@@ -3,11 +3,13 @@ export { Level }
 import * as TBX from "toybox-engine";
 import { Wall } from "./Wall";
 import { WallGroup } from "./WallGroup";
-import { GameScene } from "../GameScene";
+import { GameScene, DayState } from "../GameScene";
+import { Radar } from "./Radar";
 
 class Level
 {
     private _Scene:GameScene;
+    private _Radars: Radar[];
     private _Obstacles: WallGroup[];
     public constructor(Old?:Level, Scene?:GameScene)
     {
@@ -23,6 +25,7 @@ class Level
     }
     private Init() : void
     {
+        this._Radars = [];
         this._Obstacles = [];
         let CurrentOffset = 0;
         for(let i = 0; i < 300; i++)
@@ -34,10 +37,24 @@ class Level
     }
     public Update() : void
     {
+        this._Radars.forEach(Radar =>
+        {
+            Radar.Update();
+            if(this._Scene.State == DayState.Night)
+            {
+                this.ApplyRadar(Radar);
+            }
+        })
         this._Obstacles.forEach(Obstacle => Obstacle.Update());
+    }
+    public CreateRadar() : void
+    {
+        let Position: number = -this._Scene.Trans.Translation.X;
+        this._Radars.push(new Radar(Position, this._Scene.Player.Speed * 5));
     }
     public Reset() : void
     {
+        this._Radars = [];
         for(let i = 0; i < this._Obstacles.length; i++)
         {
             this._Obstacles[i].Destroy();
@@ -49,5 +66,15 @@ class Level
     {
         let Location:number = TBX.Random.Next(250,930);
         this._Obstacles.push(new WallGroup(this._Scene, new TBX.Vertex(Offset, Location)));
+    }
+    private ApplyRadar(Radar: Radar) : void
+    {
+        this._Obstacles.forEach(Group =>
+        {
+            if(Math.abs(Group.Position.X - Radar.Position) < 100)
+            {
+                Group.Enlighten();
+            }
+        });
     }
 }
