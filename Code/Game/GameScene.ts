@@ -60,8 +60,8 @@ class GameScene extends TBX.Scene2D
         this._Level = new Level(null, this);
         this._Player = new Player(null, this);
         this._Score = 0;
-		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(960, 100, 0.2));
-		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(160, 100, 0.2));
+		this._ScoreLabel = this.CreateLabel("SCORE: 0", new TBX.Vertex(160, 60, 0.2));
+		this._FuelLabel = this.CreateLabel("FUEL: 0", new TBX.Vertex(130, 130, 0.2));
     }
     public Reset() : void
     {
