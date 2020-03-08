@@ -15,8 +15,13 @@ enum DayState
 
 class GameScene extends TBX.Scene2D
 {   
-    public static Current:GameScene;
-    public State: DayState;
+	public static Current:GameScene;
+	public static CycleLength:number = 10; // seconds
+	public static DayToNightPercentage:number = 0.25;
+	public static NightPercentage:number = 0.5;
+	public static NightToDayPercentage:number = 0.75;
+	public State: DayState;
+	private _CycleProgress:number;
     private _Level:Level;
     private _Player:Player;
     private _Score:number;
@@ -39,13 +44,14 @@ class GameScene extends TBX.Scene2D
     }
     private InitGameScene() : void
     {
-        this.State = DayState.Day;
+		this.State = DayState.Day;
         this.Name = "Game";
         this.CreateBackground("Light");
         this.Events.Click.push(this.Click.bind(this));
         this.Events.KeyDown.push(this.KeyDown.bind(this));
         this.Events.KeyUp.push(this.KeyUp.bind(this));
-        this.Events.Update.push(this.Update.bind(this));
+		this.Events.Update.push(this.Update.bind(this));
+		this._CycleProgress = 0;
         this._Level = new Level(null, this);
         this._Player = new Player(null, this);
         this._Score = 0;
@@ -53,19 +59,22 @@ class GameScene extends TBX.Scene2D
     }
     public Reset() : void
     {
+		this.State = DayState.Day;
         this._ScoreLabel.Text = "0";
         this._Player.Reset();
         this._Level.Reset();
+		this._CycleProgress = 0;
     }
     private Update() : void
     {
         if(this._GoUp) this._Player.Move(-1);
-        if(this._GoDown) this._Player.Move(1);
+		if(this._GoDown) this._Player.Move(1);
         this._Player.Update();
         this._Score = Math.floor((-this.Trans.Translation.X) / 400);
         this._ScoreLabel.Text = this._Score.toString();
-        this._ScoreLabel.Update();
-    }
+		this._ScoreLabel.Update();
+		this.UpdateDayState();
+	}
     private Click(G:TBX.Game, Args:any) : void
     {
         //this._Player.Jump();
@@ -111,4 +120,33 @@ class GameScene extends TBX.Scene2D
         this.Attach(Label);
         return Label;
     }
+	private UpdateDayState() : void
+	{
+		this._CycleProgress += 1 / GameScene.CycleLength / 60;
+		if (this._CycleProgress >= 1) this._CycleProgress = 0;
+
+		let expectedState:DayState;
+		if (this._CycleProgress > GameScene.NightToDayPercentage) expectedState = DayState.NightToDay;
+		else if (this._CycleProgress > GameScene.NightPercentage) expectedState = DayState.Night;
+		else if (this._CycleProgress > GameScene.DayToNightPercentage) expectedState = DayState.DayToNight;
+		else expectedState = DayState.Day;
+		
+		if (expectedState != this.State)
+		{
+			this.State = expectedState;
+			console.log("day state changed", expectedState);
+
+			switch (expectedState)
+			{
+				case DayState.Day:
+					break;
+				case DayState.DayToNight:
+					break;
+				case DayState.Night:
+					break;
+				case DayState.NightToDay:
+					break;
+			}
+		}
+	}
 }
